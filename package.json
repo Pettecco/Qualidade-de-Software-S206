@@ -4,7 +4,14 @@
   "description": "Repositório dedicado a matéria de Qualidade de Software",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:run": "cypress run",
+    "report:merge": "mochawesome-merge cypress/reports/*.json > cypress/reports/report.json",
+    "report:generate": "marge cypress/reports/report.json --reportDir cypress/reports --reportFilename report",
+    "test:e2e:report": "npm run cypress:run && npm run report:merge && npm run report:generate",
+    "cypress:run:golf": "cypress run --spec 'cypress/e2e/golf-lefleur/*'",
+    "report:golf": "mochawesome-merge cypress/reports/*.json > cypress/reports/golf-report.json && marge cypress/reports/golf-report.json --reportDir cypress/reports --reportFilename golf-report",
+    "test:golf:report": "npm run cypress:run:golf && npm run report:golf"
   },
   "repository": {
     "type": "git",
@@ -20,5 +27,11 @@
   "homepage": "https://github.com/Pettecco/Qualidade-de-Software-S206#readme",
   "dependencies": {
     "cypress": "^15.5.0"
+  },
+  "devDependencies": {
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.3.2"
   }
 }
